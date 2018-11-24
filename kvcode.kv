@@ -1,0 +1,564 @@
+# Widgets do Formulário
+<FormSeletor>:
+	canvas.before:
+		Color:
+			rgba: .65, .65, .65, 1
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: 5, 5, 5, 5
+		Color:
+			rgba: .95, .95, .95, 1
+		RoundedRectangle:
+			size: self.size[0] - dp(2), self.size[1] - dp(2)
+			pos: self.pos[0] + dp(1), self.pos[1] + dp(1)
+			radius: 5, 5, 5, 5
+		Color:
+			rgba: 1, 1, 1, 1
+		RoundedRectangle:
+			source: 'imagens/sistema/gradient.png'
+			size: self.size[0] - dp(2), self.size[1] - dp(2)
+			pos: self.pos[0] + dp(1), self.pos[1] + dp(1)
+			radius: 5, 5, 5, 5
+	texto: 'Selecione Algo'
+	opcoes:  {}
+	size_hint_y: None
+	height: dp(100)
+	on_press: self.exibir_opcoes()
+
+	BoxLayout:
+		padding: '15dp'
+
+		Label:
+			size_hint: .8, 1
+			text: self.parent.parent.texto
+			color: 0, 0, 0, .5
+			font_size: sp(25) #sp((self.size[1] * 0.35))
+			text_size: self.size
+			valign: 'middle'
+			halign: 'left'
+
+		BoxLayout:
+			size_hint: .2, 1
+			Image:
+				source: 'imagens/sistema/seta.png'
+				size_hint: .3, .3
+				pos_hint: {'center_x': .5, 'center_y': .5}
+				allow_stretch: False
+
+<FormSeletorPopupConteudo>:
+	size_hint: 1.1, 1.1
+	pos_hint: {'center_x': .5, 'center_y': .5}
+	canvas.before:
+		Color:
+			rgba: .65, .65, .65, 1
+		RoundedRectangle:
+			source: 'imagens/sistema/sombra.png'
+			size: self.size[0] + dp(50), self.size[1] + dp(50)
+			pos: self.pos[0] - dp(25), self.pos[1] - dp(25)
+			radius: 5, 5, 5, 5
+		Color:
+			rgba: .65, .65, .65, 1
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: 5, 5, 5, 5
+		Color:
+			rgba: .95, .95, .95, 1
+		RoundedRectangle:
+			size: self.size[0] - dp(2), self.size[1] - dp(2)
+			pos: self.pos[0] + dp(1), self.pos[1] + dp(1)
+			radius: 5, 5, 5, 5
+		Color:
+			rgba: 1, 1, 1, 1
+		RoundedRectangle:
+			source: 'imagens/sistema/gradient.png'
+			size: self.size[0] - dp(2), self.size[1] - dp(2)
+			pos: self.pos[0] + dp(1), self.pos[1] + dp(1)
+			radius: 5, 5, 5, 5
+
+<FormSeletorOpcoesConteudo>:
+	size_hint_y: None
+	height: self.minimum_height
+	orientation: 'vertical'
+	#padding: dp(0), dp(15), dp(0), dp(15)
+
+<FormSeletorOpcao>:
+	canvas.before:
+		Color:
+			rgba: .95, .95, .95, 1
+		RoundedRectangle:
+			size: self.size[0] - dp(2), self.size[1] - dp(2)
+			pos: self.pos[0] + dp(1), self.pos[1] + dp(1)
+			radius: 5, 5, 5, 5
+	padding: '15dp'
+	size_hint_y: None
+	height: dp(100)
+	texto: ''
+	identificador: ''
+	ativo: False
+	on_press: self.parent.form_seletor.opcao_escolhida(self.identificador, self.texto)
+
+	BoxLayout:
+		size_hint: None, 1
+		width: '60dp'
+		padding: dp(0), dp(0), dp(15), dp(0)
+		Image:
+			source: 'imagens/sistema/seletor_desativado.png' if (self.parent.parent.ativo == False) else 'imagens/sistema/seletor_ativado.png'
+			size_hint: .5, .5
+			pos_hint: {'center_x': .5, 'center_y': .5}
+			allow_stretch: False
+	Label:
+		size_hint: 1, 1
+		text: self.parent.texto
+		color: 0, 0, 0, .5
+		font_size: sp(25)
+		text_size: self.size
+		valign: 'middle'
+		halign: 'left'
+
+<FormRotulo>:
+	size_hint: 1, None
+	text_size: self.width, None
+	height: self.texture_size[1]
+	font_size: sp(30)
+	color: 0, 0, 0, .7
+	valign: 'middle'
+
+<FormBotao>:
+	cor_botao: .1, .5, .85, 1
+	canvas.before:
+		Color:
+			rgba: self.cor_botao
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: 5, 5, 5, 5
+	size_hint: 1, None
+	height: dp(100)
+	font_size: sp(25)
+	on_press: self.cor_botao = .08, .43, .70, 1
+	on_release: self.cor_botao = .1, .5, .85, 1
+
+<FormEntrada>:
+	padding: dp(15), dp(30), dp(15), dp(15)
+	background_active: 'imagens/sistema/textinput_active.png'
+	background_normal: 'imagens/sistema/textinput_disabled2.png'
+	background_color: .95, .95, .95, 1
+	font_size: sp(25)
+	write_tab: False
+	size_hint: 1, None
+	height: dp(100)
+
+<FormEntradaMascara>:
+	padding: dp(15), dp(30), dp(15), dp(15)
+	background_active: 'imagens/sistema/textinput_active.png'
+	background_normal: 'imagens/sistema/textinput_disabled2.png'
+	background_color: .95, .95, .95, 1
+	font_size: sp(25)
+	write_tab: False
+	size_hint: 1, None
+	height: dp(100)
+
+<FormConteudo>:
+	size_hint_y: None
+	height: self.minimum_height
+	orientation: 'vertical'
+	spacing: '10dp'
+	padding: '15dp'
+
+<FormAviso>:
+	texto: ''
+	cor: .85, .27, .27, 1
+	padding: '15dp'
+	size_hint: 1, None
+	height: self.minimum_height if (len(self.texto) > 0) else 0
+	canvas.before:
+		Color:
+			rgba: self.cor
+		RoundedRectangle:
+			size: self.size if (len(self.texto) > 0) else (0, 0)
+			pos: self.pos
+			radius: 5, 5, 5, 5
+	on_press: self.ocultar()
+	Label:
+		id: label
+		size_hint: 1, None
+		text_size: self.width, None
+		height: self.texture_size[1]
+		valign: 'middle'
+		font_size: sp(25)
+		text: self.parent.texto
+		#on_press: self.cor_botao = .08, .43, .70, 1
+		#on_release: self.cor_botao = .1, .5, .85, 1
+
+<Formulario>:
+	size: self.size
+	bar_margin: 2
+	do_scroll_x: False
+	do_scroll_y: True
+
+
+# Widgets do Menu das Telas
+<MenuBotao>:
+	id: botao
+	icone: ''
+	cor: .8, .8, .8, 1
+	cor_borda: .65, .65, .65, 1
+	canvas.before:
+		Color:
+			rgba: self.cor
+		Rectangle:
+			pos: self.pos
+			size: self.size
+	size_hint: 1, 1
+
+	BoxLayout:
+		orientation: 'vertical'
+		size_hint: 1, 1
+		pos: botao.pos[0], botao.pos[1]
+		
+		Image:
+			source: 'imagens/sistema/' + botao.icone
+			size_hint: None, None
+			size: botao.size[0], botao.size[1]
+			pos: botao.pos[0], botao.pos[1]
+			allow_stretch: True
+
+		Widget:
+			canvas.before:
+				Color:
+					rgba: botao.cor_borda
+				Rectangle:
+					size: botao.size[0], dp(5)
+					pos: botao.pos[0], botao.pos[1]
+			size_hint: 1, None
+			height: '5dp'
+
+<Menu>:
+	id: menu
+	orientation: 'vertical'
+	size_hint: 1, None
+	height: '85dp'
+
+	BoxLayout:
+		id: opcoes
+		orientation: 'horizontal'
+		size_hint: 1, None
+		height: '85dp'
+
+
+# Widgets de exibição dos resultados (Tabela)
+<PesquisaBotao>:
+	id: botao
+	icone: ''
+	#cor_botao: .1, .5, .85, 1
+	#cor_borda: .1, .4, .75, 1
+	cor_botao: .92, .51, .2, 1
+	cor_borda: .77, .42, .16, 1
+	canvas.before:
+		Color:
+			rgba: self.cor_borda
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos[0], self.pos[1] - dp(5)
+			radius: 5, 5, 5, 5
+		Color:
+			rgba: self.cor_botao
+		RoundedRectangle:
+			size: self.size
+			pos: self.pos
+			radius: 5, 5, 5, 5
+	size_hint: 1, None
+	height: dp(100)
+	font_size: sp(25)
+	on_press: self.cor_botao = .92, .51, .2, 1; self.cor_borda = .47, .22, .06, 1
+	on_release: self.cor_botao = .92, .51, .2, 1; self.cor_borda = .77, .42, .16, 1
+	Image:
+		source: 'imagens/sistema/' + botao.icone
+		size_hint: None, None
+		size: botao.size[0], botao.size[1]
+		pos: botao.pos[0], botao.pos[1]
+
+<PesquisaResultadoConteudo>:
+	size_hint_x: None
+	size_hint_y: None
+	width: self.minimum_width
+	height: self.minimum_height
+	orientation: 'vertical'
+
+<PesquisaResultadoTitulo>:
+	orientation: 'horizontal'
+	size_hint_x: None
+	size_hint_y: None
+	width: self.minimum_width
+	height: '60dp'
+	canvas.before:
+		Color:
+			rgba: .20, .23, .27, 1
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+<PesquisaResultadoTituloRotulo>:
+	color: 1, 1, 1, 1
+	bold: True
+	font_size: '20sp'
+	size_hint: None, 1
+	width: '220dp'
+
+<PesquisaResultadoComum>:
+	orientation: 'horizontal'
+	size_hint_x: None
+	size_hint_y: None
+	width: self.minimum_width
+	height: '60dp'
+	cor: .78, .89, .99, 1
+	canvas.before:
+		Color:
+			rgba: self.cor
+		Rectangle:
+			size: self.size
+			pos: self.pos
+
+<PesquisaResultadoComumRotulo>:
+	color: 0, 0, 0, 1
+	font_size: '20sp'
+	size_hint: None, 1
+	width: '220dp'
+
+<PesquisaResultadoComumBotao>:
+	id: botao
+	size_hint: 1, 1
+	pos_hint: {'center_x': .5, 'center_y': .5}
+	icone: ''
+	canvas.before:
+		Color:
+			rgba: .75, .75, .65, 1
+		RoundedRectangle:
+			radius: 5, 5, 5, 5
+			size: self.size
+			pos: self.pos
+		Color:
+			rgba: .95, .95, .95, 1
+		RoundedRectangle:
+			radius: 5, 5, 5, 5
+			size: self.size[0] - dp(2), self.size[1] - dp(2)
+			pos: self.pos[0] + dp(1), self.pos[1] + dp(1)
+	Image:
+		source: 'imagens/sistema/' + botao.icone
+		size_hint: None, None
+		size: botao.size[0]/2, botao.size[1]/2
+		pos: botao.pos[0] + (botao.size[0]/2)/2, botao.pos[1] + (botao.size[1]/2)/2
+
+<PesquisaResultado>:
+	size: self.size
+	bar_margin: 2
+	do_scroll_x: True
+	do_scroll_y: True
+	scroll_type: ['bars', 'content']
+	effect_cls: 'ScrollEffect'
+
+
+# Widgets das Telas
+<TelaPesquisa>:
+	BoxLayout:
+		orientation: 'vertical'
+
+		Menu:
+			tela: root
+
+		Widget:
+			size_hint: 1, None
+			height: '15dp'
+
+		ScrollView:
+			size: self.size
+			bar_margin: 2
+			do_scroll_x: False
+			do_scroll_y: True
+			
+			BoxLayout:
+				orientation: 'vertical'
+				spacing: '15dp'
+				padding: '15dp'
+				size_hint_y: None
+				height: self.minimum_height
+
+				PesquisaBotao:
+					icone: 'carro_i.png'
+					on_release: root.mudar_tela_carregando('tela_pesquisa_carro')
+
+				PesquisaBotao:
+					icone: 'usuario_i.png'
+					on_release: root.mudar_tela_carregando('tela_pesquisa_usuario')
+
+				PesquisaBotao:
+					icone: 'marca_i.png'
+					on_release: root.mudar_tela_carregando('tela_pesquisa_marca')
+
+<TelaPesquisaCarro>:
+	BoxLayout:
+		orientation: 'vertical'
+
+		Menu:
+			tela: root
+
+		BoxLayout:
+			id: conteudo
+			orientation: 'vertical'
+			spacing: '10dp'
+			padding: '15dp'
+
+			FormEntrada:
+				id: filtro
+				hint_text: 'Filtrar Carros'
+				padding: dp(10), dp(12), dp(10), dp(10)
+				height: dp(60)
+				text: ''
+				on_text: root.carregar_resultados()
+
+<TelaPesquisaUsuario>:
+	BoxLayout:
+		orientation: 'vertical'
+
+		Menu:
+			tela: root
+
+		BoxLayout:
+			id: conteudo
+			orientation: 'vertical'
+			spacing: '10dp'
+			padding: '15dp'
+
+			FormEntrada:
+				id: filtro
+				hint_text: 'Filtrar Usuários'
+				padding: dp(10), dp(12), dp(10), dp(10)
+				height: dp(60)
+				text: ''
+				on_text: root.carregar_resultados()
+
+<TelaPesquisaMarca>:
+	BoxLayout:
+		orientation: 'vertical'
+
+		Menu:
+			tela: root
+
+		BoxLayout:
+			id: conteudo
+			orientation: 'vertical'
+			spacing: '10dp'
+			padding: '15dp'
+
+			FormEntrada:
+				id: filtro
+				hint_text: 'Filtrar Marcas'
+				padding: dp(10), dp(12), dp(10), dp(10)
+				height: dp(60)
+				text: ''
+				on_text: root.carregar_resultados()
+
+<TelaCadastroUsuario>:
+	BoxLayout:
+		orientation: 'vertical'
+
+		Menu:
+			tela: root
+
+		Widget:
+			size_hint: 1, None
+			height: '15dp'
+
+		Formulario:
+			id: formulario
+			aviso_sucesso: True
+			FormConteudo:
+				FormRotulo:
+					text: 'Cadastro de Usuário'
+				FormAviso:
+					id: aviso
+					texto: ''
+				FormEntrada:
+					nome: 'nome'
+					hint_text: 'Nome'
+				FormEntradaMascara:
+					nome: 'celular'
+					mascara: '+## (##) # ####-####'
+					hint_text: 'Celular'
+				FormSeletor:
+					nome: 'carro'
+					texto: 'Selecione um carro'
+					# Coleta Opções direto do banco de dados
+					# {'db':['tabela', 'where', 'id, campo as valor', [?, ?...]], 'extra': {...}
+					opcoes: {'db':['carros', '', 'id, modelo as valor', []], 'extra':{'0':'Nenhum'}}
+					# Exemplo de versão sem banco de dados:
+					# opcoes: {'0':'Carro', '1':'Nada'...}
+				FormBotao:
+					text: 'Cadastrar'
+					on_release: 
+						formulario.enviar_dados('form_cadastro_usuario')
+						formulario.scroll_y = 1
+
+<TelaCadastroCarro>:
+	BoxLayout:
+		orientation: 'vertical'
+
+		Menu:
+			tela: root
+
+		Widget:
+			size_hint: 1, None
+			height: '15dp'
+
+		Formulario:
+			id: formulario
+			aviso_sucesso: True
+			FormConteudo:
+				FormRotulo:
+					text: 'Cadastro de Carro'
+				FormAviso:
+					id: aviso
+					texto: ''
+				FormEntrada:
+					nome: 'modelo'
+					hint_text: 'Modelo do Carro'
+				FormSeletor:
+					nome: 'marca'
+					texto: 'Selecione uma marca'
+					opcoes: {'db':['marcas', '', 'id, marca as valor', []], 'extra':{}}
+				FormBotao:
+					text: 'Cadastrar'
+					on_release: 
+						formulario.enviar_dados('form_cadastro_carro')
+						formulario.scroll_y = 1
+
+<TelaCadastroMarca>:
+	BoxLayout:
+		orientation: 'vertical'
+
+		Menu:
+			tela: root
+
+		Widget:
+			size_hint: 1, None
+			height: '15dp'
+
+		Formulario:
+			id: formulario
+			aviso_sucesso: True
+			FormConteudo:
+				FormRotulo:
+					text: 'Cadastro de Marca'
+				FormAviso:
+					id: aviso
+					texto: ''
+				FormEntrada:
+					nome: 'marca'
+					hint_text: 'Nome da marca'
+				FormBotao:
+					text: 'Cadastrar'
+					on_release: 
+						formulario.enviar_dados('form_cadastro_marca')
+						formulario.scroll_y = 1
